@@ -1,7 +1,9 @@
 package com.artikov.walle;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Date: 12/11/2016
@@ -21,11 +23,11 @@ public class Form {
         return (T) mValues.get(field);
     }
 
-    public <T> void removeValue(Field<T> field) {
-        mValues.remove(field);
-    }
-
     public <T> boolean containsField(Field<T> field) {
         return mValues.containsKey(field);
+    }
+
+    public Set<Field> getFields() {
+        return mValues.keySet();
     }
 }
