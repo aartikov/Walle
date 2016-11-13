@@ -39,9 +39,8 @@ public class PerFieldFormDecorator extends FormDecorator {
 
     @Override
     protected void decorate(FormValidationResult result) {
-        for (Map.Entry<Field, FieldValidationResult> entry : result.getEntrySet()) {
-            Field field = entry.getKey();
-            FieldValidationResult fieldValidationResult = entry.getValue();
+        for (Field field : result.getFields()) {
+            FieldValidationResult fieldValidationResult = result.getFieldValidationResult(field);
 
             FieldDecorator decorator = mFieldDecorators.get(field);
             if (decorator == null) {

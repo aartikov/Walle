@@ -39,7 +39,7 @@ public class FormValidationResult {
         return mFieldValidationResults.containsKey(field);
     }
 
-    public Set<Map.Entry<Field, FieldValidationResult>> getEntrySet() {
-        return mFieldValidationResults.entrySet();
+    public Set<Field> getFields() {
+        return mFieldValidationResults.keySet();
     }
 }
