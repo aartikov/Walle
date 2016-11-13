@@ -9,6 +9,8 @@ import android.content.Context;
  * @author Artur Artikov
  */
 public class FieldValidationResult {
+    public static final FieldValidationResult VALID = new FieldValidationResult(true, "");
+
     private boolean mValid;
     private int mMessageResId;
     private String mMessageString;
@@ -23,10 +25,6 @@ public class FieldValidationResult {
         mValid = valid;
         mMessageResId = -1;
         mMessageString = messageString;
-    }
-
-    static public FieldValidationResult createValid() {
-        return new FieldValidationResult(true, "");
     }
 
     public boolean isValid() {

@@ -14,31 +14,20 @@ import com.artikov.walle.FieldValidator;
  * @author Artur Artikov
  */
 public abstract class SimpleFieldValidator<T> extends FieldValidator<T> {
-    @StringRes
-    private int mErrorMessageResId = -1;
-    private String mErrorMessageString = "";
+    private FieldValidationResult invalidResult;
 
     public SimpleFieldValidator(@StringRes int errorMessageResId) {
-        mErrorMessageResId = errorMessageResId;
+        invalidResult = new FieldValidationResult(false, errorMessageResId);
     }
 
     public SimpleFieldValidator(String errorMessageString) {
-        mErrorMessageString = errorMessageString;
+        invalidResult = new FieldValidationResult(false, errorMessageString);
     }
 
     @Override
     public FieldValidationResult validate(Form form, Field<T> field) {
         T value = form.getValue(field);
-        boolean valid = isValid(form, value);
-        if (valid) {
-            return FieldValidationResult.createValid();
-        } else {
-            if (mErrorMessageResId != -1) {
-                return new FieldValidationResult(false, mErrorMessageResId);
-            } else {
-                return new FieldValidationResult(false, mErrorMessageString);
-            }
-        }
+        return isValid(form, value) ? FieldValidationResult.VALID : invalidResult;
     }
 
     abstract protected boolean isValid(Form form, T value);

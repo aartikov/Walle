@@ -67,7 +67,7 @@ public class PerFieldFormValidator extends FormValidator {
             if(mValidationStrategy == ValidationStrategy.ALL) {
                 fieldValidationResult = validator.validate(form, field);
             } else if(mValidationStrategy == ValidationStrategy.UNTIL_FIRST_ERROR) {
-                fieldValidationResult = wasError ? FieldValidationResult.createValid() : validator.validate(form, field);
+                fieldValidationResult = wasError ? FieldValidationResult.VALID : validator.validate(form, field);
             } else {
                 throw new IllegalArgumentException("PerFieldFormValidator: unknown validation strategy " + mValidationStrategy);
             }
