@@ -17,8 +17,17 @@ public class FormValidator {
         UNTIL_FIRST_ERROR
     }
 
+    private ValidationStrategy mValidationStrategy;
     private Map<Field, FieldValidator> mFieldValidators = new LinkedHashMap<>();
     private FormValidationResult mValidationResult = new FormValidationResult();
+
+    public FormValidator() {
+        this(ValidationStrategy.ALL);
+    }
+
+    public FormValidator(ValidationStrategy validationStrategy) {
+        mValidationStrategy = validationStrategy;
+    }
 
     public <T> void addFieldValidator(Field<T> field, FieldValidator<T> validator) {
         if (mFieldValidators.containsKey(field)) {
@@ -27,16 +36,16 @@ public class FormValidator {
         mFieldValidators.put(field, validator);
     }
 
-    public FormValidationResult validateAll(Form form) {
-        return validate(form, ValidationStrategy.ALL);
+    public ValidationStrategy getValidationStrategy() {
+        return mValidationStrategy;
     }
 
-    public FormValidationResult validateUntilFirstError(Form form) {
-        return validate(form, ValidationStrategy.UNTIL_FIRST_ERROR);
+    public void setValidationStrategy(ValidationStrategy validationStrategy) {
+        mValidationStrategy = validationStrategy;
     }
 
     @SuppressWarnings("unchecked")
-    public FormValidationResult validate(Form form, ValidationStrategy validationStrategy) {
+    public FormValidationResult validate(Form form) {
         List<FieldValidationResult> results = new ArrayList<>();
         boolean wasError = false;
 
@@ -49,12 +58,12 @@ public class FormValidator {
             }
 
             FieldValidationResult result;
-            if(validationStrategy == ValidationStrategy.ALL) {
+            if(mValidationStrategy == ValidationStrategy.ALL) {
                 result = validator.validate(form, field);
-            } else if(validationStrategy == ValidationStrategy.UNTIL_FIRST_ERROR) {
+            } else if(mValidationStrategy == ValidationStrategy.UNTIL_FIRST_ERROR) {
                 result = wasError ? FieldValidationResult.createValid(field) : validator.validate(form, field);
             } else {
-                throw new IllegalArgumentException("FormValidator: unknown validation strategy " + validationStrategy);
+                throw new IllegalArgumentException("FormValidator: unknown validation strategy " + mValidationStrategy);
             }
 
             if (!result.isValid()) {

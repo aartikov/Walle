@@ -27,7 +27,7 @@ public class SignUpPresenter extends MvpPresenter<SignUpView> {
     }
 
     public void userClickSignUp(SignUpForm form) {
-        FormValidationResult result = mFormValidator.validateAll(form);
+        FormValidationResult result = mFormValidator.validate(form);
         getViewState().setValidationResult(result);
 
         if (result.isValid()) {
