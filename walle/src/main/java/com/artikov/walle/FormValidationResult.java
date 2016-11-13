@@ -1,7 +1,10 @@
 package com.artikov.walle;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Date: 12/11/2016
@@ -10,43 +13,42 @@ import java.util.List;
  * @author Artur Artikov
  */
 public class FormValidationResult {
-    private List<FieldValidationResult> mFieldValidationResults = new ArrayList<>();
+    private Map<Field, FieldValidationResult> mFieldValidationResults = new LinkedHashMap<>();
+    private Object mCustomData;
 
     public FormValidationResult() {
     }
 
-    public FormValidationResult(List<FieldValidationResult> fieldValidationResults) {
-        mFieldValidationResults.addAll(fieldValidationResults);
-    }
-
     public boolean isValid() {
-        for (FieldValidationResult validatorResult : mFieldValidationResults) {
-            if (!validatorResult.isValid()) {
+        for (FieldValidationResult result : mFieldValidationResults.values()) {
+            if (!result.isValid()) {
                 return false;
             }
         }
         return true;
     }
 
-    public List<FieldValidationResult> getFieldValidationResults() {
-        return mFieldValidationResults;
+    public void putFieldValidationResult(Field field, FieldValidationResult result) {
+        mFieldValidationResults.put(field, result);
     }
 
-    public void removeAllErrors() {
-        for (int i = 0; i < mFieldValidationResults.size(); i++) {
-            FieldValidationResult result = mFieldValidationResults.get(i);
-            if (!result.isValid()) {
-                mFieldValidationResults.set(i, FieldValidationResult.createValid(result.getField()));
-            }
-        }
+    public FieldValidationResult getFieldValidationResult(Field field) {
+        return mFieldValidationResults.get(field);
     }
 
-    public void removeFieldError(Field field) {
-        for (int i = 0; i < mFieldValidationResults.size(); i++) {
-            FieldValidationResult result = mFieldValidationResults.get(i);
-            if (!result.isValid() && field.equals(result.getField())) {
-                mFieldValidationResults.set(i, FieldValidationResult.createValid(field));
-            }
-        }
+    public boolean containsFieldValidationResult(Field field) {
+        return mFieldValidationResults.containsKey(field);
+    }
+
+    public Set<Map.Entry<Field, FieldValidationResult>> getEntrySet() {
+        return mFieldValidationResults.entrySet();
+    }
+
+    public Object getCustomData() {
+        return mCustomData;
+    }
+
+    public void setCustomData(Object customData) {
+        mCustomData = customData;
     }
 }

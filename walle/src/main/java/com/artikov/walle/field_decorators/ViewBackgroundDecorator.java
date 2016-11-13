@@ -24,7 +24,7 @@ public class ViewBackgroundDecorator extends FieldDecorator {
     }
 
     @Override
-    public void setValidationResult(FieldValidationResult result) {
+    protected void decorate(FieldValidationResult result) {
         mView.setBackgroundColor(result.isValid() ? mValidColor : mErrorColor);
     }
 }

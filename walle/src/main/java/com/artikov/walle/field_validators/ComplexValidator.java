@@ -30,6 +30,6 @@ public class ComplexValidator<T> extends FieldValidator<T> {
                 return result;
             }
         }
-        return FieldValidationResult.createValid(field);
+        return FieldValidationResult.createValid();
     }
 }

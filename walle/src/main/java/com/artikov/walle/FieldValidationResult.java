@@ -9,32 +9,25 @@ import android.content.Context;
  * @author Artur Artikov
  */
 public class FieldValidationResult {
-    private Field mField;
     private boolean mValid;
     private int mMessageResId;
     private String mMessageString;
     private Object mCustomData;
 
-    public FieldValidationResult(Field field, boolean valid, int messageResId) {
-        mField = field;
+    public FieldValidationResult(boolean valid, int messageResId) {
         mValid = valid;
         mMessageResId = messageResId;
         mMessageString = "";
     }
 
-    public FieldValidationResult(Field field, boolean valid, String messageString) {
-        mField = field;
+    public FieldValidationResult(boolean valid, String messageString) {
         mValid = valid;
         mMessageResId = -1;
         mMessageString = messageString;
     }
 
-    static public FieldValidationResult createValid(Field field) {
-        return new FieldValidationResult(field, true, "");
-    }
-
-    public Field getField() {
-        return mField;
+    static public FieldValidationResult createValid() {
+        return new FieldValidationResult(true, "");
     }
 
     public boolean isValid() {

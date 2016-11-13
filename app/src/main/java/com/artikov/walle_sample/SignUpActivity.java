@@ -1,5 +1,6 @@
 package com.artikov.walle_sample;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,7 +10,11 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.artikov.walle.FormDecorator;
 import com.artikov.walle.FormValidationResult;
+import com.artikov.walle.field_decorators.ComplexDecorator;
 import com.artikov.walle.field_decorators.EditTextErrorDecorator;
+import com.artikov.walle.field_decorators.ViewBackgroundDecorator;
+import com.artikov.walle.form_decorators.PerFieldFormDecorator;
+import com.artikov.walle.form_validators.PerFieldFormValidator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,11 +61,11 @@ public class SignUpActivity extends MvpAppCompatActivity implements SignUpView {
     }
 
     private FormDecorator createFormDecorator() {
-        FormDecorator formDecorator = new FormDecorator();
+        PerFieldFormDecorator formDecorator = new PerFieldFormDecorator();
         formDecorator.addFieldDecorator(SignUpForm.EMAIL, new EditTextErrorDecorator(mEmailEditText));
         formDecorator.addFieldDecorator(SignUpForm.PASSWORD, new EditTextErrorDecorator(mPasswordEditText));
         formDecorator.addFieldDecorator(SignUpForm.CONFIRM_PASSWORD, new EditTextErrorDecorator(mConfirmPasswordEditText));
-        formDecorator.setHideErrorListener(field -> mPresenter.userHideFieldError(field));
+        formDecorator.setOnValidationResultModifiedListener(result -> mPresenter.onValidationResultModified(result));
         return formDecorator;
     }
 

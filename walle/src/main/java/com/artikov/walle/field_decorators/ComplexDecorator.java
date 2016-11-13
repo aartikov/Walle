@@ -18,10 +18,11 @@ public class ComplexDecorator extends FieldDecorator {
     public ComplexDecorator(FieldDecorator... decorators) {
         mDecorators = Arrays.asList(decorators);
         for (FieldDecorator decorator : mDecorators) {
-            decorator.setHideErrorListener(new HideErrorListener() {
+            decorator.setOnValidationResultModifiedListener(new OnValidationResultModifiedListener() {
+
                 @Override
-                public void hideError() {
-                    ComplexDecorator.this.hideError();
+                public void onModified(FieldValidationResult result) {
+                    modifyValidationResult(result);
                 }
             });
         }
@@ -32,5 +33,10 @@ public class ComplexDecorator extends FieldDecorator {
         for (FieldDecorator decorator : mDecorators) {
             decorator.setValidationResult(result);
         }
+    }
+
+    @Override
+    protected void decorate(FieldValidationResult result) {
+        // nothing
     }
 }

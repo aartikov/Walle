@@ -9,44 +9,37 @@ import java.util.Map;
  *
  * @author Artur Artikov
  */
-public class FormDecorator {
-    private Map<Field, FieldDecorator> mFieldDecorators = new HashMap<>();
-    private HideErrorListener mHideErrorListener;
+abstract public class FormDecorator {
+    private FormValidationResult mValidationResult;
+    private OnValidationResultModifiedListener mOnValidationResultModifiedListener;
 
-    public void addFieldDecorator(final Field field, FieldDecorator decorator) {
-        if (mFieldDecorators.containsKey(field)) {
-            throw new IllegalArgumentException("FormDecorator: more than one decorator for field " + field.getName());
-        }
-
-        decorator.setHideErrorListener(new FieldDecorator.HideErrorListener() {
-            @Override
-            public void hideError() {
-                if (mHideErrorListener != null) {
-                    mHideErrorListener.hideError(field);
-                }
-            }
-        });
-
-        mFieldDecorators.put(field, decorator);
-    }
-
-    public void setHideErrorListener(HideErrorListener hideErrorListener) {
-        mHideErrorListener = hideErrorListener;
-    }
+    protected abstract void decorate(FormValidationResult result);
 
     public void setValidationResult(FormValidationResult result) {
-        for (FieldValidationResult fieldValidationResult : result.getFieldValidationResults()) {
-            Field field = fieldValidationResult.getField();
-            FieldDecorator decorator = mFieldDecorators.get(field);
-            if (decorator == null) {
-                throw new IllegalArgumentException("FormDecorator: there is no decorator for field " + field.getName());
-            }
+        mValidationResult = result;
+        decorate(result);
+    }
 
-            decorator.setValidationResult(fieldValidationResult);
+    public FormValidationResult getValidationResult() {
+        return mValidationResult;
+    }
+
+    public void setOnValidationResultModifiedListener(OnValidationResultModifiedListener onValidationResultModifiedListener) {
+        mOnValidationResultModifiedListener = onValidationResultModifiedListener;
+    }
+
+    public OnValidationResultModifiedListener getOnValidationResultModifiedListener() {
+        return mOnValidationResultModifiedListener;
+    }
+
+    protected void modifyValidationResult(FormValidationResult newResult) {
+        setValidationResult(newResult);
+        if(mOnValidationResultModifiedListener != null) {
+            mOnValidationResultModifiedListener.onModified(newResult);
         }
     }
 
-    public interface HideErrorListener {
-        void hideError(Field field);
+    public interface OnValidationResultModifiedListener {
+        void onModified(FormValidationResult result);
     }
 }

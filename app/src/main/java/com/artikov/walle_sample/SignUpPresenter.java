@@ -9,8 +9,10 @@ import com.artikov.walle.field_validators.CompareValidator;
 import com.artikov.walle.field_validators.ComplexValidator;
 import com.artikov.walle.field_validators.NotEmptyStringValidator;
 import com.artikov.walle.field_validators.PatternValidator;
-import com.artikov.walle_sample.validators.EmailValidator;
-import com.artikov.walle_sample.validators.PasswordValidator;
+import com.artikov.walle.form_decorators.PerFieldFormDecorator;
+import com.artikov.walle.form_validators.PerFieldFormValidator;
+import com.artikov.walle_sample.field_validators.EmailValidator;
+import com.artikov.walle_sample.field_validators.PasswordValidator;
 
 /**
  * Date: 12/11/2016
@@ -35,8 +37,7 @@ public class SignUpPresenter extends MvpPresenter<SignUpView> {
         }
     }
 
-    public void userHideFieldError(Field field) {
-        FormValidationResult result = mFormValidator.removeFieldError(field);
+    public void onValidationResultModified(FormValidationResult result) {
         getViewState().setValidationResult(result);
     }
 
@@ -46,7 +47,7 @@ public class SignUpPresenter extends MvpPresenter<SignUpView> {
         PasswordValidator passwordValidator = new PasswordValidator(R.string.invalid_password_error);
         CompareValidator<String> comparePasswordsValidator = new CompareValidator<>(SignUpForm.PASSWORD, R.string.confirm_password_error);
 
-        FormValidator formValidator = new FormValidator();
+        PerFieldFormValidator formValidator = new PerFieldFormValidator();
         formValidator.addFieldValidator(SignUpForm.EMAIL, new ComplexValidator<>(notEmptyStringValidator, emailValidator));
         formValidator.addFieldValidator(SignUpForm.PASSWORD, new ComplexValidator<>(notEmptyStringValidator, passwordValidator));
         formValidator.addFieldValidator(SignUpForm.CONFIRM_PASSWORD, new ComplexValidator<>(notEmptyStringValidator, comparePasswordsValidator));

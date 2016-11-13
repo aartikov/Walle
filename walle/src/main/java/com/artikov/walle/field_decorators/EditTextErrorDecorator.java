@@ -4,6 +4,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import com.artikov.walle.Field;
 import com.artikov.walle.FieldDecorator;
 import com.artikov.walle.FieldValidationResult;
 
@@ -25,7 +26,9 @@ public class EditTextErrorDecorator extends FieldDecorator {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                EditTextErrorDecorator.this.hideError();
+                if(getValidationResult() != null) {
+                    modifyValidationResult(FieldValidationResult.createValid());
+                }
             }
 
             @Override
@@ -35,7 +38,7 @@ public class EditTextErrorDecorator extends FieldDecorator {
     }
 
     @Override
-    public void setValidationResult(FieldValidationResult result) {
+    protected void decorate(FieldValidationResult result) {
         mEditText.setError(result.isValid() ? null : result.getMessage(mEditText.getContext()));
     }
 }

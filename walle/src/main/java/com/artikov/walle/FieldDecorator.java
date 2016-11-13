@@ -7,21 +7,36 @@ package com.artikov.walle;
  * @author Artur Artikov
  */
 public abstract class FieldDecorator {
-    private HideErrorListener mHideErrorListener;
+    private FieldValidationResult mValidationResult;
+    private OnValidationResultModifiedListener mOnValidationResultModifiedListener;
 
-    public abstract void setValidationResult(FieldValidationResult result);
+    protected abstract void decorate(FieldValidationResult result);
 
-    public void setHideErrorListener(HideErrorListener hideErrorListener) {
-        mHideErrorListener = hideErrorListener;
+    public void setValidationResult(FieldValidationResult result) {
+        mValidationResult = result;
+        decorate(result);
     }
 
-    protected void hideError() {
-        if (mHideErrorListener != null) {
-            mHideErrorListener.hideError();
+    public FieldValidationResult getValidationResult() {
+        return mValidationResult;
+    }
+
+    public void setOnValidationResultModifiedListener(OnValidationResultModifiedListener onValidationResultModifiedListener) {
+        mOnValidationResultModifiedListener = onValidationResultModifiedListener;
+    }
+
+    public OnValidationResultModifiedListener getOnValidationResultModifiedListener() {
+        return mOnValidationResultModifiedListener;
+    }
+
+    protected void modifyValidationResult(FieldValidationResult newResult) {
+        setValidationResult(newResult);
+        if(mOnValidationResultModifiedListener != null) {
+            mOnValidationResultModifiedListener.onModified(newResult);
         }
     }
 
-    public interface HideErrorListener {
-        void hideError();
+    public interface OnValidationResultModifiedListener {
+        void onModified(FieldValidationResult result);
     }
 }

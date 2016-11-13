@@ -31,12 +31,12 @@ public abstract class SimpleFieldValidator<T> extends FieldValidator<T> {
         T value = form.getValue(field);
         boolean valid = isValid(form, value);
         if (valid) {
-            return FieldValidationResult.createValid(field);
+            return FieldValidationResult.createValid();
         } else {
             if (mErrorMessageResId != -1) {
-                return new FieldValidationResult(field, false, mErrorMessageResId);
+                return new FieldValidationResult(false, mErrorMessageResId);
             } else {
-                return new FieldValidationResult(field, false, mErrorMessageString);
+                return new FieldValidationResult(false, mErrorMessageString);
             }
         }
     }
