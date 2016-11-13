@@ -1,9 +1,9 @@
-package com.artikov.wallesample.validators;
+package com.artikov.walle_sample.validators;
 
 import android.support.annotation.StringRes;
 
 import com.artikov.walle.Form;
-import com.artikov.walle.validators.SimpleFieldValidator;
+import com.artikov.walle.field_validators.SimpleFieldValidator;
 
 /**
  * Date: 12/11/2016

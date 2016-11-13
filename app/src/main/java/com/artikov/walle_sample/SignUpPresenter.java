@@ -1,16 +1,16 @@
-package com.artikov.wallesample;
+package com.artikov.walle_sample;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.artikov.walle.Field;
 import com.artikov.walle.FormValidationResult;
 import com.artikov.walle.FormValidator;
-import com.artikov.walle.validators.CompareValidator;
-import com.artikov.walle.validators.ComplexValidator;
-import com.artikov.walle.validators.NotEmptyStringValidator;
-import com.artikov.walle.validators.PatternValidator;
-import com.artikov.wallesample.validators.EmailValidator;
-import com.artikov.wallesample.validators.PasswordValidator;
+import com.artikov.walle.field_validators.CompareValidator;
+import com.artikov.walle.field_validators.ComplexValidator;
+import com.artikov.walle.field_validators.NotEmptyStringValidator;
+import com.artikov.walle.field_validators.PatternValidator;
+import com.artikov.walle_sample.validators.EmailValidator;
+import com.artikov.walle_sample.validators.PasswordValidator;
 
 /**
  * Date: 12/11/2016

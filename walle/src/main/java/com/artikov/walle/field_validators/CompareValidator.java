@@ -1,4 +1,4 @@
-package com.artikov.walle.validators;
+package com.artikov.walle.field_validators;
 
 import android.support.annotation.StringRes;
 

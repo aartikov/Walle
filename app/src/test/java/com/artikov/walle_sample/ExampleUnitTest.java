@@ -1,4 +1,4 @@
-package com.artikov.wallesample;
+package com.artikov.walle_sample;
 
 import org.junit.Test;
 

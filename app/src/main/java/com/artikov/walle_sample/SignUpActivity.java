@@ -1,4 +1,4 @@
-package com.artikov.wallesample;
+package com.artikov.walle_sample;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -9,7 +9,7 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.artikov.walle.FormDecorator;
 import com.artikov.walle.FormValidationResult;
-import com.artikov.walle.decorators.EditTextErrorDecorator;
+import com.artikov.walle.field_decorators.EditTextErrorDecorator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

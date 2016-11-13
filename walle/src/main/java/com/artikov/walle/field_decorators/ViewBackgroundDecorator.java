@@ -1,4 +1,4 @@
-package com.artikov.walle.decorators;
+package com.artikov.walle.field_decorators;
 
 import android.support.annotation.ColorInt;
 import android.view.View;

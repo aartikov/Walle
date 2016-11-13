@@ -1,4 +1,4 @@
-package com.artikov.walle.validators;
+package com.artikov.walle.field_validators;
 
 import com.artikov.walle.Field;
 import com.artikov.walle.Form;
