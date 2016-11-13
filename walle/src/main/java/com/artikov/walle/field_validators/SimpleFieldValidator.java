@@ -6,6 +6,7 @@ import com.artikov.walle.Field;
 import com.artikov.walle.Form;
 import com.artikov.walle.FieldValidationResult;
 import com.artikov.walle.FieldValidator;
+import com.artikov.walle.StringWrapper;
 
 /**
  * Date: 12/11/2016
@@ -17,11 +18,11 @@ public abstract class SimpleFieldValidator<T> extends FieldValidator<T> {
     private FieldValidationResult invalidResult;
 
     public SimpleFieldValidator(@StringRes int errorMessageResId) {
-        invalidResult = new FieldValidationResult(false, errorMessageResId);
+        invalidResult = new FieldValidationResult(false, new StringWrapper(errorMessageResId));
     }
 
     public SimpleFieldValidator(String errorMessageString) {
-        invalidResult = new FieldValidationResult(false, errorMessageString);
+        invalidResult = new FieldValidationResult(false, new StringWrapper(errorMessageString));
     }
 
     @Override

@@ -39,6 +39,6 @@ public class EditTextErrorDecorator extends FieldDecorator {
 
     @Override
     protected void decorate(FieldValidationResult result) {
-        mEditText.setError(result.isValid() ? null : result.getMessage(mEditText.getContext()));
+        mEditText.setError(result.isValid() ? null : result.getErrorMessage().getString(mEditText.getContext()));
     }
 }
