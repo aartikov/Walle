@@ -14,7 +14,6 @@ import java.util.Set;
  */
 public class FormValidationResult {
     private Map<Field, FieldValidationResult> mFieldValidationResults = new LinkedHashMap<>();
-    private Object mCustomData;
 
     public FormValidationResult() {
     }
@@ -42,13 +41,5 @@ public class FormValidationResult {
 
     public Set<Map.Entry<Field, FieldValidationResult>> getEntrySet() {
         return mFieldValidationResults.entrySet();
-    }
-
-    public Object getCustomData() {
-        return mCustomData;
-    }
-
-    public void setCustomData(Object customData) {
-        mCustomData = customData;
     }
 }

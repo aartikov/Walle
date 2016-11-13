@@ -12,7 +12,6 @@ public class FieldValidationResult {
     private boolean mValid;
     private int mMessageResId;
     private String mMessageString;
-    private Object mCustomData;
 
     public FieldValidationResult(boolean valid, int messageResId) {
         mValid = valid;
@@ -36,13 +35,5 @@ public class FieldValidationResult {
 
     public String getMessage(Context context) {
         return mMessageResId != -1 ? context.getString(mMessageResId) : mMessageString;
-    }
-
-    public Object getCustomData() {
-        return mCustomData;
-    }
-
-    public void setCustomData(Object customData) {
-        mCustomData = customData;
     }
 }
