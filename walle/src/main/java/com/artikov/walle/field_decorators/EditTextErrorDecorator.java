@@ -19,16 +19,19 @@ public class EditTextErrorDecorator extends FieldDecorator {
 	public EditTextErrorDecorator(EditText editText) {
 		mEditText = editText;
 		mEditText.addTextChangedListener(new TextWatcher() {
+			private boolean mFirstChange = true;        // Workaround for problem that onTextChanged called during onRestoreInstanceState (TODO: need better solution!)
+
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 			}
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				if (getValidationResult() != null) {
+				if (getValidationResult() != null && !mFirstChange) {
 					setValidationResult(FieldValidationResult.VALID);
 					notifyOnValidationResultModifiedListener(getValidationResult());
 				}
+				mFirstChange = false;
 			}
 
 			@Override
