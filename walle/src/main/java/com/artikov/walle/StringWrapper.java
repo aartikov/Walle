@@ -21,9 +21,9 @@ public class StringWrapper {
 		mString = "";
 	}
 
-	public StringWrapper(String mString) {
+	public StringWrapper(String string) {
 		mStringResId = -1;
-		mString = mString;
+		mString = string;
 	}
 
 	public String getString(Context context) {
