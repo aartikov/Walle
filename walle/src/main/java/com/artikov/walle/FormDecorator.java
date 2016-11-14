@@ -29,10 +29,9 @@ abstract public class FormDecorator {
 		return mOnValidationResultModifiedListener;
 	}
 
-	protected void modifyValidationResult(FormValidationResult newResult) {
-		setValidationResult(newResult);
-		if (mOnValidationResultModifiedListener != null) {
-			mOnValidationResultModifiedListener.onModified(newResult);
+	protected void notifyOnValidationResultModifiedListener(FormValidationResult result) {
+		if(mOnValidationResultModifiedListener != null) {
+			mOnValidationResultModifiedListener.onModified(result);
 		}
 	}
 

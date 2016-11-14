@@ -29,10 +29,9 @@ public abstract class FieldDecorator {
 		return mOnValidationResultModifiedListener;
 	}
 
-	protected void modifyValidationResult(FieldValidationResult newResult) {
-		setValidationResult(newResult);
-		if (mOnValidationResultModifiedListener != null) {
-			mOnValidationResultModifiedListener.onModified(newResult);
+	protected void notifyOnValidationResultModifiedListener(FieldValidationResult result) {
+		if(mOnValidationResultModifiedListener != null) {
+			mOnValidationResultModifiedListener.onModified(result);
 		}
 	}
 

@@ -29,7 +29,7 @@ public class PerFieldFormDecorator extends FormDecorator {
 				FormValidationResult validationResult = getValidationResult();
 				if (validationResult != null && validationResult.containsFieldValidationResult(field)) {
 					validationResult.putFieldValidationResult(field, fieldValidationResult);
-					modifyValidationResult(validationResult);
+					notifyOnValidationResultModifiedListener(validationResult);
 				}
 			}
 		});

@@ -22,7 +22,8 @@ public class ComplexDecorator extends FieldDecorator {
 
 				@Override
 				public void onModified(FieldValidationResult result) {
-					modifyValidationResult(result);
+					setValidationResult(result);
+					notifyOnValidationResultModifiedListener(result);
 				}
 			});
 		}
