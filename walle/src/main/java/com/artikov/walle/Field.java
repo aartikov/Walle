@@ -7,13 +7,13 @@ package com.artikov.walle;
  * @author Artur Artikov
  */
 public class Field<T> {
-    private String mName;
+	private String mName;
 
-    public Field(String name) {
-        mName = name;
-    }
+	public Field(String name) {
+		mName = name;
+	}
 
-    public String getName() {
-        return mName;
-    }
+	public String getName() {
+		return mName;
+	}
 }

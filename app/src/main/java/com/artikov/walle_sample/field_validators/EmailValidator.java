@@ -12,11 +12,11 @@ import com.artikov.walle.field_validators.PatternValidator;
  * @author Artur Artikov
  */
 public class EmailValidator extends PatternValidator {
-    public EmailValidator(@StringRes int errorMessageResId) {
-        super(Patterns.EMAIL_ADDRESS, errorMessageResId);
-    }
+	public EmailValidator(@StringRes int errorMessageResId) {
+		super(Patterns.EMAIL_ADDRESS, errorMessageResId);
+	}
 
-    public EmailValidator(String errorMessageString) {
-        super(Patterns.EMAIL_ADDRESS, errorMessageString);
-    }
+	public EmailValidator(String errorMessageString) {
+		super(Patterns.EMAIL_ADDRESS, errorMessageString);
+	}
 }

@@ -1,6 +1,5 @@
 package com.artikov.walle;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -12,22 +11,22 @@ import java.util.Set;
  * @author Artur Artikov
  */
 public class Form {
-    private Map<Field, Object> mValues = new HashMap<>();
+	private Map<Field, Object> mValues = new HashMap<>();
 
-    public <T> void putValue(Field<T> field, T value) {
-        mValues.put(field, value);
-    }
+	public <T> void putValue(Field<T> field, T value) {
+		mValues.put(field, value);
+	}
 
-    @SuppressWarnings("unchecked")
-    public <T> T getValue(Field<T> field) {
-        return (T) mValues.get(field);
-    }
+	@SuppressWarnings("unchecked")
+	public <T> T getValue(Field<T> field) {
+		return (T) mValues.get(field);
+	}
 
-    public <T> boolean containsField(Field<T> field) {
-        return mValues.containsKey(field);
-    }
+	public <T> boolean containsField(Field<T> field) {
+		return mValues.containsKey(field);
+	}
 
-    public Set<Field> getFields() {
-        return mValues.keySet();
-    }
+	public Set<Field> getFields() {
+		return mValues.keySet();
+	}
 }

@@ -10,22 +10,23 @@ import android.support.annotation.StringRes;
  * @author Artur Artikov
  */
 public class StringWrapper {
-    public static final StringWrapper EMPTY = new StringWrapper("");
+	public static final StringWrapper EMPTY = new StringWrapper("");
 
-    @StringRes private int mStringResId;
-    private String mString;
+	@StringRes
+	private int mStringResId;
+	private String mString;
 
-    public StringWrapper(@StringRes int stringResId) {
-        mStringResId = stringResId;
-        mString = "";
-    }
+	public StringWrapper(@StringRes int stringResId) {
+		mStringResId = stringResId;
+		mString = "";
+	}
 
-    public StringWrapper(String mString) {
-        mStringResId = -1;
-        mString = mString;
-    }
+	public StringWrapper(String mString) {
+		mStringResId = -1;
+		mString = mString;
+	}
 
-    public String getString(Context context) {
-        return mStringResId != -1 ? context.getString(mStringResId) : mString;
-    }
+	public String getString(Context context) {
+		return mStringResId != -1 ? context.getString(mStringResId) : mString;
+	}
 }

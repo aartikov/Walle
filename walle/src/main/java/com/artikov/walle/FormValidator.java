@@ -1,10 +1,5 @@
 package com.artikov.walle;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Date: 12/11/2016
  * Time: 18:40
@@ -12,5 +7,5 @@ import java.util.Map;
  * @author Artur Artikov
  */
 abstract public class FormValidator {
-    public abstract FormValidationResult validate(Form form);
+	public abstract FormValidationResult validate(Form form);
 }

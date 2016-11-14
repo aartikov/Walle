@@ -13,16 +13,16 @@ import com.artikov.walle.Form;
  */
 public class NotEmptyStringValidator extends SimpleFieldValidator<String> {
 
-    public NotEmptyStringValidator(@StringRes int errorMessageResId) {
-        super(errorMessageResId);
-    }
+	public NotEmptyStringValidator(@StringRes int errorMessageResId) {
+		super(errorMessageResId);
+	}
 
-    public NotEmptyStringValidator(String errorMessageString) {
-        super(errorMessageString);
-    }
+	public NotEmptyStringValidator(String errorMessageString) {
+		super(errorMessageString);
+	}
 
-    @Override
-    protected boolean isValid(Form form, String value) {
-        return !TextUtils.isEmpty(value);
-    }
+	@Override
+	protected boolean isValid(Form form, String value) {
+		return !TextUtils.isEmpty(value);
+	}
 }

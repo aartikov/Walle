@@ -12,16 +12,16 @@ import com.artikov.walle.field_validators.SimpleFieldValidator;
  * @author Artur Artikov
  */
 public class PasswordValidator extends SimpleFieldValidator<String> {
-    public PasswordValidator(@StringRes int errorMessageResId) {
-        super(errorMessageResId);
-    }
+	public PasswordValidator(@StringRes int errorMessageResId) {
+		super(errorMessageResId);
+	}
 
-    public PasswordValidator(String errorMessageString) {
-        super(errorMessageString);
-    }
+	public PasswordValidator(String errorMessageString) {
+		super(errorMessageString);
+	}
 
-    @Override
-    protected boolean isValid(Form form, String value) {
-        return value.length() >= 6;
-    }
+	@Override
+	protected boolean isValid(Form form, String value) {
+		return value.length() >= 6;
+	}
 }

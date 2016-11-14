@@ -14,7 +14,8 @@ import com.artikov.walle.FormValidationResult;
  */
 @StateStrategyType(AddToEndSingleStrategy.class)
 public interface SignUpView extends MvpView {
-    void setValidationResult(FormValidationResult result);
-    @StateStrategyType(SkipStrategy.class)
-    void showSignedUpMessage();
+	void setValidationResult(FormValidationResult result);
+
+	@StateStrategyType(SkipStrategy.class)
+	void showSignedUpMessage();
 }

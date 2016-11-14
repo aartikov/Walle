@@ -15,21 +15,21 @@ import com.artikov.walle.StringWrapper;
  * @author Artur Artikov
  */
 public abstract class SimpleFieldValidator<T> extends FieldValidator<T> {
-    private FieldValidationResult invalidResult;
+	private FieldValidationResult invalidResult;
 
-    public SimpleFieldValidator(@StringRes int errorMessageResId) {
-        invalidResult = new FieldValidationResult(false, new StringWrapper(errorMessageResId));
-    }
+	public SimpleFieldValidator(@StringRes int errorMessageResId) {
+		invalidResult = new FieldValidationResult(false, new StringWrapper(errorMessageResId));
+	}
 
-    public SimpleFieldValidator(String errorMessageString) {
-        invalidResult = new FieldValidationResult(false, new StringWrapper(errorMessageString));
-    }
+	public SimpleFieldValidator(String errorMessageString) {
+		invalidResult = new FieldValidationResult(false, new StringWrapper(errorMessageString));
+	}
 
-    @Override
-    public FieldValidationResult validate(Form form, Field<T> field) {
-        T value = form.getValue(field);
-        return isValid(form, value) ? FieldValidationResult.VALID : invalidResult;
-    }
+	@Override
+	public FieldValidationResult validate(Form form, Field<T> field) {
+		T value = form.getValue(field);
+		return isValid(form, value) ? FieldValidationResult.VALID : invalidResult;
+	}
 
-    abstract protected boolean isValid(Form form, T value);
+	abstract protected boolean isValid(Form form, T value);
 }

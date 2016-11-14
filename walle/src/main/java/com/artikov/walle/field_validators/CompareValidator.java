@@ -12,21 +12,21 @@ import com.artikov.walle.Form;
  * @author Artur Artikov
  */
 public class CompareValidator<T> extends SimpleFieldValidator<T> {
-    private Field<T> mOtherField;
+	private Field<T> mOtherField;
 
-    public CompareValidator(Field<T> otherField, @StringRes int errorMessageResId) {
-        super(errorMessageResId);
-        mOtherField = otherField;
-    }
+	public CompareValidator(Field<T> otherField, @StringRes int errorMessageResId) {
+		super(errorMessageResId);
+		mOtherField = otherField;
+	}
 
-    public CompareValidator(Field<T> otherField, String errorMessageString) {
-        super(errorMessageString);
-        mOtherField = otherField;
-    }
+	public CompareValidator(Field<T> otherField, String errorMessageString) {
+		super(errorMessageString);
+		mOtherField = otherField;
+	}
 
-    @Override
-    protected boolean isValid(Form form, T value) {
-        T otherValue = form.getValue(mOtherField);
-        return otherValue != null && otherValue.equals(value);
-    }
+	@Override
+	protected boolean isValid(Form form, T value) {
+		T otherValue = form.getValue(mOtherField);
+		return otherValue != null && otherValue.equals(value);
+	}
 }

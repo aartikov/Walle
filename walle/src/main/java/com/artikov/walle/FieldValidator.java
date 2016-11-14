@@ -7,5 +7,5 @@ package com.artikov.walle;
  * @author Artur Artikov
  */
 public abstract class FieldValidator<T> {
-    public abstract FieldValidationResult validate(Form form, Field<T> field);
+	public abstract FieldValidationResult validate(Form form, Field<T> field);
 }

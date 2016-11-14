@@ -1,10 +1,10 @@
 package com.artikov.walle.field_decorators;
 
-import com.artikov.walle.FieldDecorator;
-import com.artikov.walle.FieldValidationResult;
-
 import java.util.Arrays;
 import java.util.List;
+
+import com.artikov.walle.FieldDecorator;
+import com.artikov.walle.FieldValidationResult;
 
 /**
  * Date: 12/11/2016
@@ -13,30 +13,30 @@ import java.util.List;
  * @author Artur Artikov
  */
 public class ComplexDecorator extends FieldDecorator {
-    private List<FieldDecorator> mDecorators;
+	private List<FieldDecorator> mDecorators;
 
-    public ComplexDecorator(FieldDecorator... decorators) {
-        mDecorators = Arrays.asList(decorators);
-        for (FieldDecorator decorator : mDecorators) {
-            decorator.setOnValidationResultModifiedListener(new OnValidationResultModifiedListener() {
+	public ComplexDecorator(FieldDecorator... decorators) {
+		mDecorators = Arrays.asList(decorators);
+		for (FieldDecorator decorator : mDecorators) {
+			decorator.setOnValidationResultModifiedListener(new OnValidationResultModifiedListener() {
 
-                @Override
-                public void onModified(FieldValidationResult result) {
-                    modifyValidationResult(result);
-                }
-            });
-        }
-    }
+				@Override
+				public void onModified(FieldValidationResult result) {
+					modifyValidationResult(result);
+				}
+			});
+		}
+	}
 
-    @Override
-    public void setValidationResult(FieldValidationResult result) {
-        for (FieldDecorator decorator : mDecorators) {
-            decorator.setValidationResult(result);
-        }
-    }
+	@Override
+	public void setValidationResult(FieldValidationResult result) {
+		for (FieldDecorator decorator : mDecorators) {
+			decorator.setValidationResult(result);
+		}
+	}
 
-    @Override
-    protected void decorate(FieldValidationResult result) {
-        // nothing
-    }
+	@Override
+	protected void decorate(FieldValidationResult result) {
+		// nothing
+	}
 }

@@ -10,7 +10,7 @@ import com.artikov.walle.Form;
  * @author Artur Artikov
  */
 public class SignUpForm extends Form {
-    public static Field<String> EMAIL = new Field<>("EMAIL");
-    public static Field<String> PASSWORD = new Field<>("PASSWORD");
-    public static Field<String> CONFIRM_PASSWORD = new Field<>("CONFIRM_PASSWORD");
+	public static Field<String> EMAIL = new Field<>("EMAIL");
+	public static Field<String> PASSWORD = new Field<>("PASSWORD");
+	public static Field<String> CONFIRM_PASSWORD = new Field<>("CONFIRM_PASSWORD");
 }
