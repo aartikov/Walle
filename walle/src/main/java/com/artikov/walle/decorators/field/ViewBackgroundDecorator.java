@@ -14,21 +14,31 @@ import com.artikov.walle.FieldValidationResult;
  */
 public class ViewBackgroundDecorator extends FieldDecorator {
 	private View mView;
-
+	@ColorInt
+	private int mDefaultColor;
 	@ColorInt
 	private int mValidColor;
-
 	@ColorInt
 	private int mErrorColor;
 
-	public ViewBackgroundDecorator(View view, @ColorInt int validColor, @ColorInt int errorColor) {
+	public ViewBackgroundDecorator(View view, @ColorInt int defaultColor, @ColorInt int validColor, @ColorInt int errorColor) {
 		mView = view;
+		mDefaultColor = defaultColor;
 		mValidColor = validColor;
 		mErrorColor = errorColor;
 	}
 
+	public ViewBackgroundDecorator(View view, @ColorInt int defaultColor, @ColorInt int errorColor) {
+		this(view, defaultColor, defaultColor, errorColor);
+	}
+
 	@Override
-	protected void decorate(FieldValidationResult result) {
+	public void decorate(FieldValidationResult result) {
 		mView.setBackgroundColor(result.isValid() ? mValidColor : mErrorColor);
+	}
+
+	@Override
+	public void clear() {
+		mView.setBackgroundColor(mDefaultColor);
 	}
 }

@@ -67,7 +67,7 @@ public class SignUpActivity extends MvpAppCompatActivity implements SignUpView {
 
 	@Override
 	public void setValidationResult(FormValidationResult result) {
-		mFormDecorator.setValidationResult(result);
+		mFormDecorator.decorate(result);
 	}
 
 	@Override

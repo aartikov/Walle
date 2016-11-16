@@ -17,19 +17,19 @@ import com.artikov.walle.FormValidationResult;
  */
 public class PerFieldFormDecorator extends FormDecorator {
 	private Map<Field, FieldDecorator> mFieldDecorators = new HashMap<>();
+	private FormValidationResult mFormValidationResult;
 
 	public void addFieldDecorator(final Field field, FieldDecorator decorator) {
 		if (mFieldDecorators.containsKey(field)) {
 			throw new IllegalArgumentException("FormDecorator: more than one decorator for field " + field.getName());
 		}
 
-		decorator.setOnValidationResultModifiedListener(new FieldDecorator.OnValidationResultModifiedListener() {
+		decorator.setOnValidationResultResetListener(new FieldDecorator.OnValidationResultResetListener() {
 			@Override
-			public void onModified(FieldValidationResult fieldValidationResult) {
-				FormValidationResult validationResult = getValidationResult();
-				if (validationResult != null && validationResult.containsFieldValidationResult(field)) {
-					validationResult.putFieldValidationResult(field, fieldValidationResult);
-					notifyOnValidationResultModifiedListener(validationResult);
+			public void onReset() {
+				if (mFormValidationResult != null) {
+					mFormValidationResult.removeFieldValidationResult(field);
+					notifyThatValidationResultModified(mFormValidationResult);
 				}
 			}
 		});
@@ -38,16 +38,24 @@ public class PerFieldFormDecorator extends FormDecorator {
 	}
 
 	@Override
-	protected void decorate(FormValidationResult result) {
-		for (Field field : result.getFields()) {
-			FieldValidationResult fieldValidationResult = result.getFieldValidationResult(field);
-
-			FieldDecorator decorator = mFieldDecorators.get(field);
-			if (decorator == null) {
-				throw new IllegalArgumentException("PerFieldFormDecorator: there is no decorator for field " + field.getName());
+	public void decorate(FormValidationResult result) {
+		mFormValidationResult = result;
+		for (Map.Entry<Field, FieldDecorator> entry : mFieldDecorators.entrySet()) {
+			FieldDecorator decorator = entry.getValue();
+			FieldValidationResult fieldValidationResult = result.getFieldValidationResult(entry.getKey());
+			if(fieldValidationResult != null) {
+				decorator.decorate(fieldValidationResult);
+			} else {
+				decorator.clear();
 			}
+		}
+	}
 
-			decorator.setValidationResult(fieldValidationResult);
+	@Override
+	public void clear() {
+		mFormValidationResult = null;
+		for (FieldDecorator decorator: mFieldDecorators.values()) {
+			decorator.clear();
 		}
 	}
 }

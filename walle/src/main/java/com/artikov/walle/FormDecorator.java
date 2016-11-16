@@ -7,19 +7,11 @@ package com.artikov.walle;
  * @author Artur Artikov
  */
 abstract public class FormDecorator {
-	private FormValidationResult mValidationResult;
 	private OnValidationResultModifiedListener mOnValidationResultModifiedListener;
 
-	protected abstract void decorate(FormValidationResult result);
+	public abstract void decorate(FormValidationResult result);
 
-	public void setValidationResult(FormValidationResult result) {
-		mValidationResult = result;
-		decorate(result);
-	}
-
-	public FormValidationResult getValidationResult() {
-		return mValidationResult;
-	}
+	public abstract void clear();
 
 	public void setOnValidationResultModifiedListener(OnValidationResultModifiedListener onValidationResultModifiedListener) {
 		mOnValidationResultModifiedListener = onValidationResultModifiedListener;
@@ -29,7 +21,7 @@ abstract public class FormDecorator {
 		return mOnValidationResultModifiedListener;
 	}
 
-	protected void notifyOnValidationResultModifiedListener(FormValidationResult result) {
+	protected void notifyThatValidationResultModified(FormValidationResult result) {
 		if(mOnValidationResultModifiedListener != null) {
 			mOnValidationResultModifiedListener.onModified(result);
 		}

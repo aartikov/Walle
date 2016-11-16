@@ -33,8 +33,8 @@ public class FormValidationResult {
 		return mFieldValidationResults.get(field);
 	}
 
-	public boolean containsFieldValidationResult(Field field) {
-		return mFieldValidationResults.containsKey(field);
+	public void removeFieldValidationResult(Field field) {
+		mFieldValidationResults.remove(field);
 	}
 
 	public Set<Field> getFields() {

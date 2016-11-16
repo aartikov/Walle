@@ -18,26 +18,26 @@ public class ComplexDecorator extends FieldDecorator {
 	public ComplexDecorator(FieldDecorator... decorators) {
 		mDecorators = Arrays.asList(decorators);
 		for (FieldDecorator decorator : mDecorators) {
-			decorator.setOnValidationResultModifiedListener(new OnValidationResultModifiedListener() {
-
+			decorator.setOnValidationResultResetListener(new OnValidationResultResetListener() {
 				@Override
-				public void onModified(FieldValidationResult result) {
-					setValidationResult(result);
-					notifyOnValidationResultModifiedListener(result);
+				public void onReset() {
+					resetValidationResult();
 				}
 			});
 		}
 	}
 
 	@Override
-	public void setValidationResult(FieldValidationResult result) {
+	public void decorate(FieldValidationResult result) {
 		for (FieldDecorator decorator : mDecorators) {
-			decorator.setValidationResult(result);
+			decorator.decorate(result);
 		}
 	}
 
 	@Override
-	protected void decorate(FieldValidationResult result) {
-		// nothing
+	public void clear() {
+		for (FieldDecorator decorator : mDecorators) {
+			decorator.clear();
+		}
 	}
 }

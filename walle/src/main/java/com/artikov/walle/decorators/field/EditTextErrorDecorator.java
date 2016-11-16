@@ -27,9 +27,8 @@ public class EditTextErrorDecorator extends FieldDecorator {
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				if (getValidationResult() != null && !mFirstChange) {
-					setValidationResult(FieldValidationResult.VALID);
-					notifyOnValidationResultModifiedListener(getValidationResult());
+				if (!mFirstChange) {
+					resetValidationResult();
 				}
 				mFirstChange = false;
 			}
@@ -41,7 +40,12 @@ public class EditTextErrorDecorator extends FieldDecorator {
 	}
 
 	@Override
-	protected void decorate(FieldValidationResult result) {
+	public void decorate(FieldValidationResult result) {
 		mEditText.setError(result.isValid() ? null : result.getErrorMessage().getString(mEditText.getContext()));
+	}
+
+	@Override
+	public void clear() {
+		mEditText.setError(null);
 	}
 }

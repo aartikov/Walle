@@ -7,35 +7,28 @@ package com.artikov.walle;
  * @author Artur Artikov
  */
 public abstract class FieldDecorator {
-	private FieldValidationResult mValidationResult;
-	private OnValidationResultModifiedListener mOnValidationResultModifiedListener;
+	private OnValidationResultResetListener mOnValidationResultResetListener;
 
-	protected abstract void decorate(FieldValidationResult result);
+	public abstract void decorate(FieldValidationResult result);
 
-	public void setValidationResult(FieldValidationResult result) {
-		mValidationResult = result;
-		decorate(result);
+	public abstract void clear();
+
+	public void setOnValidationResultResetListener(OnValidationResultResetListener onValidationResultResetListener) {
+		mOnValidationResultResetListener = onValidationResultResetListener;
 	}
 
-	public FieldValidationResult getValidationResult() {
-		return mValidationResult;
+	public OnValidationResultResetListener getOnValidationResultResetListener() {
+		return mOnValidationResultResetListener;
 	}
 
-	public void setOnValidationResultModifiedListener(OnValidationResultModifiedListener onValidationResultModifiedListener) {
-		mOnValidationResultModifiedListener = onValidationResultModifiedListener;
-	}
-
-	public OnValidationResultModifiedListener getOnValidationResultModifiedListener() {
-		return mOnValidationResultModifiedListener;
-	}
-
-	protected void notifyOnValidationResultModifiedListener(FieldValidationResult result) {
-		if(mOnValidationResultModifiedListener != null) {
-			mOnValidationResultModifiedListener.onModified(result);
+	protected void resetValidationResult() {
+		if(mOnValidationResultResetListener != null) {
+			mOnValidationResultResetListener.onReset();
 		}
+		clear();
 	}
 
-	public interface OnValidationResultModifiedListener {
-		void onModified(FieldValidationResult result);
+	public interface OnValidationResultResetListener {
+		void onReset();
 	}
 }
