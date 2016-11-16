@@ -1,4 +1,4 @@
-package com.artikov.walle_sample;
+package com.artikov.wallesample;
 
 import com.artikov.walle.Field;
 import com.artikov.walle.Form;

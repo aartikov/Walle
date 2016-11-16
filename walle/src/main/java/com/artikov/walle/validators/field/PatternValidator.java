@@ -1,4 +1,4 @@
-package com.artikov.walle.field_validators;
+package com.artikov.walle.validators.field;
 
 import java.util.regex.Pattern;
 

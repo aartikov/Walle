@@ -1,4 +1,7 @@
-package com.artikov.walle.form_validators;
+package com.artikov.walle.validators.form;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.artikov.walle.Field;
 import com.artikov.walle.FieldValidationResult;
@@ -6,11 +9,6 @@ import com.artikov.walle.FieldValidator;
 import com.artikov.walle.Form;
 import com.artikov.walle.FormValidationResult;
 import com.artikov.walle.FormValidator;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Date: 13/11/2016

@@ -1,4 +1,4 @@
-package com.artikov.walle_sample;
+package com.artikov.wallesample;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
 		// Context of the app under test.
 		Context appContext = InstrumentationRegistry.getTargetContext();
 
-		assertEquals("com.artikov.walle_sample", appContext.getPackageName());
+		assertEquals("com.artikov.wallesample", appContext.getPackageName());
 	}
 }

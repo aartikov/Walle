@@ -1,4 +1,4 @@
-package com.artikov.walle.field_decorators;
+package com.artikov.walle.decorators.field;
 
 import android.text.Editable;
 import android.text.TextWatcher;

@@ -1,4 +1,4 @@
-package com.artikov.walle.form_decorators;
+package com.artikov.walle.decorators.form;
 
 import java.util.HashMap;
 import java.util.Map;
