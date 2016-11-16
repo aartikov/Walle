@@ -57,10 +57,6 @@ public class PerFieldFormValidator extends FormValidator {
             Field field = entry.getKey();
             FieldValidator validator = entry.getValue();
 
-            if (!form.containsField(field)) {
-                throw new IllegalArgumentException("PerFieldFormValidator: form does not contain field " + field.getName());
-            }
-
             FieldValidationResult fieldValidationResult;
             if(mValidationStrategy == ValidationStrategy.ALL) {
                 fieldValidationResult = validator.validate(form, field);

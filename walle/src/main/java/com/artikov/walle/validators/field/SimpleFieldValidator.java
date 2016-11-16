@@ -28,6 +28,9 @@ public abstract class SimpleFieldValidator<T> extends FieldValidator<T> {
 	@Override
 	public FieldValidationResult validate(Form form, Field<T> field) {
 		T value = form.getValue(field);
+		if (value == null) {
+			throw new IllegalArgumentException("SimpleFieldValidator: there is no value for field " + field.getName());
+		}
 		return isValid(form, value) ? FieldValidationResult.VALID : invalidResult;
 	}
 

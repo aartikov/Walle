@@ -22,10 +22,6 @@ public class Form {
 		return (T) mValues.get(field);
 	}
 
-	public <T> boolean containsField(Field<T> field) {
-		return mValues.containsKey(field);
-	}
-
 	public Set<Field> getFields() {
 		return mValues.keySet();
 	}
