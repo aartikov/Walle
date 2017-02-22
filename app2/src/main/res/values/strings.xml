@@ -1,0 +1,12 @@
+<resources>
+	<string name="app_name">Walle Sample</string>
+	<string name="email">E-mail</string>
+	<string name="password">Password</string>
+	<string name="confirm_password">Confirm Password</string>
+	<string name="sign_up">Sign Up</string>
+
+	<string name="empty_field_error">Can\'t be empty</string>
+	<string name="invalid_email_error">Invalid email</string>
+	<string name="invalid_password_error">Must contain at least 6 symbols</string>
+	<string name="confirm_password_error">Passwords must match</string>
+</resources>

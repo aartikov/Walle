@@ -17,6 +17,7 @@ import com.artikov.walle.FormValidator;
  * @author Artur Artikov
  */
 public class PerFieldFormValidator extends FormValidator {
+
     public enum ValidationStrategy {
         ALL,
         UNTIL_FIRST_ERROR
@@ -24,6 +25,7 @@ public class PerFieldFormValidator extends FormValidator {
 
     private ValidationStrategy mValidationStrategy;
     private Map<Field, FieldValidator> mFieldValidators = new LinkedHashMap<>();
+    private AdditionalValidation mAdditionalValidation;
 
     public PerFieldFormValidator() {
         this(ValidationStrategy.ALL);
@@ -37,7 +39,7 @@ public class PerFieldFormValidator extends FormValidator {
         if (mFieldValidators.containsKey(field)) {
             throw new IllegalArgumentException("PerFieldFormValidator: more than one validator for field " + field.getName());
         }
-        mFieldValidators.put(field, validator);
+	    mFieldValidators.put(field, validator);
     }
 
     public ValidationStrategy getValidationStrategy() {
@@ -46,6 +48,10 @@ public class PerFieldFormValidator extends FormValidator {
 
     public void setValidationStrategy(ValidationStrategy validationStrategy) {
         mValidationStrategy = validationStrategy;
+    }
+
+    public void setAdditionalValidation(AdditionalValidation additionalValidation) {
+        mAdditionalValidation = additionalValidation;
     }
 
     @SuppressWarnings("unchecked")
@@ -73,6 +79,24 @@ public class PerFieldFormValidator extends FormValidator {
             result.putFieldValidationResult(field, fieldValidationResult);
         }
 
+        if(mAdditionalValidation != null) {
+            mAdditionalValidation.call(result);
+        }
+
         return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    public FieldValidationResult validateField(Form form, Field field) {
+        FieldValidator fieldValidator = mFieldValidators.get(field);
+        if(fieldValidator == null) {
+            return FieldValidationResult.VALID;
+        }
+
+        return fieldValidator.validate(form, field);
+    }
+
+    public interface AdditionalValidation {
+        void call(FormValidationResult formValidationResult);
     }
 }

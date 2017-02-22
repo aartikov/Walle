@@ -18,10 +18,12 @@ import com.artikov.walle.FormValidationResult;
 public class PerFieldFormDecorator extends FormDecorator {
 	private Map<Field, FieldDecorator> mFieldDecorators = new HashMap<>();
 	private FormValidationResult mFormValidationResult;
+	private AdditionalDecoration mAdditionalDecoration;
+	private AdditionalClearing mAdditionalClearing;
 
 	public void addFieldDecorator(final Field field, FieldDecorator decorator) {
 		if (mFieldDecorators.containsKey(field)) {
-			throw new IllegalArgumentException("FormDecorator: more than one decorator for field " + field.getName());
+			throw new IllegalArgumentException("PerFieldFormDecorator: more than one decorator for field " + field.getName());
 		}
 
 		decorator.setOnValidationResultResetListener(new FieldDecorator.OnValidationResultResetListener() {
@@ -37,6 +39,14 @@ public class PerFieldFormDecorator extends FormDecorator {
 		mFieldDecorators.put(field, decorator);
 	}
 
+	public void setAdditionalDecoration(AdditionalDecoration additionalDecoration) {
+		mAdditionalDecoration = additionalDecoration;
+	}
+
+	public void setAdditionalClearing(AdditionalClearing additionalClearing) {
+		mAdditionalClearing = additionalClearing;
+	}
+
 	@Override
 	public void decorate(FormValidationResult result) {
 		mFormValidationResult = result;
@@ -49,6 +59,10 @@ public class PerFieldFormDecorator extends FormDecorator {
 				decorator.clear();
 			}
 		}
+
+		if(mAdditionalDecoration != null) {
+			mAdditionalDecoration.call(mFormValidationResult);
+		}
 	}
 
 	@Override
@@ -57,6 +71,18 @@ public class PerFieldFormDecorator extends FormDecorator {
 		for (FieldDecorator decorator: mFieldDecorators.values()) {
 			decorator.clear();
 		}
+
+		if(mAdditionalClearing != null) {
+			mAdditionalClearing.call();
+		}
+	}
+
+	public interface AdditionalDecoration {
+		void call(FormValidationResult formValidationResult);
+	}
+
+	public interface AdditionalClearing {
+		void call();
 	}
 }
 
