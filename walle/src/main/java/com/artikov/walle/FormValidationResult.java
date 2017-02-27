@@ -25,6 +25,11 @@ public class FormValidationResult {
 		return true;
 	}
 
+	public boolean isFieldValid(Field field) {
+		FieldValidationResult fieldValidationResult = getFieldValidationResult(field);
+		return fieldValidationResult != null && fieldValidationResult.isValid();
+	}
+
 	public void putFieldValidationResult(Field field, FieldValidationResult result) {
 		mFieldValidationResults.put(field, result);
 	}

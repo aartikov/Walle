@@ -1,6 +1,6 @@
 package com.artikov.walle.validators.form;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.artikov.walle.Field;
@@ -24,7 +24,7 @@ public class StandardFormValidator extends FormValidator {
     }
 
     private ValidationStrategy mValidationStrategy;
-    private Map<Field, FieldValidator> mFieldValidators = new LinkedHashMap<>();
+    private Map<Field, FieldValidator> mFieldValidators = new HashMap<>();
     private AdditionalValidation mAdditionalValidation;
 
     public StandardFormValidator() {
@@ -56,27 +56,23 @@ public class StandardFormValidator extends FormValidator {
 
     @SuppressWarnings("unchecked")
     public FormValidationResult validate(Form form) {
-        FormValidationResult result = new FormValidationResult();
-        boolean wasError = false;
-
+        // check that all fields exists
         for (Map.Entry<Field, FieldValidator> entry : mFieldValidators.entrySet()) {
             Field field = entry.getKey();
-            FieldValidator validator = entry.getValue();
-
-            FieldValidationResult fieldValidationResult;
-            if(mValidationStrategy == ValidationStrategy.ALL) {
-                fieldValidationResult = validator.validate(form, field);
-            } else if(mValidationStrategy == ValidationStrategy.UNTIL_FIRST_ERROR) {
-                fieldValidationResult = wasError ? FieldValidationResult.VALID : validator.validate(form, field);
-            } else {
-                throw new IllegalArgumentException("StandardFormValidator: unknown validation strategy " + mValidationStrategy);
+            FieldValidator fieldValidator = entry.getValue();
+            if(fieldValidator != null && !form.containsField(field)) {
+                throw new IllegalArgumentException("StandardFormValidator: form does not contain field " + field.getName());
             }
+        }
 
-            if (!fieldValidationResult.isValid()) {
-                wasError = true;
-            }
-
+        FormValidationResult result = new FormValidationResult();
+        for (Field field: form.getFields()) {
+            FieldValidator fieldValidator = mFieldValidators.get(field);
+            FieldValidationResult fieldValidationResult = fieldValidator != null ? fieldValidator.validate(form, field) : FieldValidationResult.VALID;
             result.putFieldValidationResult(field, fieldValidationResult);
+            if(mValidationStrategy == ValidationStrategy.UNTIL_FIRST_ERROR && !fieldValidationResult.isValid()) {
+                break;
+            }
         }
 
         if(mAdditionalValidation != null) {
@@ -88,11 +84,14 @@ public class StandardFormValidator extends FormValidator {
 
     @SuppressWarnings("unchecked")
     public FieldValidationResult validateField(Form form, Field field) {
+        if(!form.containsField(field)) {
+            throw new IllegalArgumentException("StandardFormValidator: form does not contain field " + field.getName());
+        }
+
         FieldValidator fieldValidator = mFieldValidators.get(field);
         if(fieldValidator == null) {
             return FieldValidationResult.VALID;
         }
-
         return fieldValidator.validate(form, field);
     }
 

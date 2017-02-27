@@ -29,7 +29,7 @@ public abstract class SimpleFieldValidator<T> extends FieldValidator<T> {
 	public FieldValidationResult validate(Form form, Field<T> field) {
 		T value = form.getValue(field);
 		if (value == null) {
-			throw new IllegalArgumentException("SimpleFieldValidator: there is no value for field " + field.getName());
+			throw new IllegalArgumentException("SimpleFieldValidator: value of field " + field.getName() + " is null");
 		}
 		return isValid(form, value) ? FieldValidationResult.VALID : invalidResult;
 	}

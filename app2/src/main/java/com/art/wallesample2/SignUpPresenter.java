@@ -65,10 +65,7 @@ public class SignUpPresenter extends MvpPresenter<SignUpView> {
 		formValidator.addFieldValidator(SignUpForm.CONFIRM_PASSWORD, new ComplexValidator<>(notEmptyStringValidator, comparePasswordsValidator));
 
 		formValidator.setAdditionalValidation(formValidationResult -> {
-			FieldValidationResult passwordValidationResult = formValidationResult.getFieldValidationResult(SignUpForm.PASSWORD);
-			FieldValidationResult confirmPasswordValidationResult = formValidationResult.getFieldValidationResult(SignUpForm.CONFIRM_PASSWORD);
-
-			if(passwordValidationResult.isValid() && !confirmPasswordValidationResult.isValid()) {
+			if(formValidationResult.isFieldValid(SignUpForm.PASSWORD) && !formValidationResult.isFieldValid(SignUpForm.CONFIRM_PASSWORD)) {
 				formValidationResult.removeFieldValidationResult(SignUpForm.PASSWORD);
 			}
 		});
