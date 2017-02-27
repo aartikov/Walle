@@ -10,7 +10,7 @@ import com.artikov.walle.validators.field.CompareValidator;
 import com.artikov.walle.validators.field.ComplexValidator;
 import com.artikov.walle.validators.field.NotEmptyStringValidator;
 import com.artikov.walle.validators.field.PatternValidator;
-import com.artikov.walle.validators.form.PerFieldFormValidator;
+import com.artikov.walle.validators.form.StandardFormValidator;
 
 /**
  * Date: 12/11/2016
@@ -20,7 +20,7 @@ import com.artikov.walle.validators.form.PerFieldFormValidator;
  */
 @InjectViewState
 public class SignUpPresenter extends MvpPresenter<SignUpView> {
-	private PerFieldFormValidator mFormValidator;
+	private StandardFormValidator mFormValidator;
 	private FormValidationResult mValidationResult = new FormValidationResult();
 
 	public SignUpPresenter() {
@@ -54,12 +54,12 @@ public class SignUpPresenter extends MvpPresenter<SignUpView> {
 		getViewState().setValidationResult(mValidationResult);
 	}
 
-	private PerFieldFormValidator createFormValidator() {
+	private StandardFormValidator createFormValidator() {
 		NotEmptyStringValidator notEmptyStringValidator = new NotEmptyStringValidator(R.string.empty_field_error);
 		PatternValidator emailValidator = new PatternValidator(Patterns.EMAIL_ADDRESS, R.string.invalid_email_error);
 		CompareValidator<String> comparePasswordsValidator = new CompareValidator<>(SignUpForm.PASSWORD, R.string.confirm_password_error);
 
-		PerFieldFormValidator formValidator = new PerFieldFormValidator();
+		StandardFormValidator formValidator = new StandardFormValidator();
 		formValidator.addFieldValidator(SignUpForm.EMAIL, new ComplexValidator<>(notEmptyStringValidator, emailValidator));
 		formValidator.addFieldValidator(SignUpForm.PASSWORD, notEmptyStringValidator);
 		formValidator.addFieldValidator(SignUpForm.CONFIRM_PASSWORD, new ComplexValidator<>(notEmptyStringValidator, comparePasswordsValidator));

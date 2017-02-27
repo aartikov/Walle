@@ -8,7 +8,7 @@ import com.artikov.walle.validators.field.CompareValidator;
 import com.artikov.walle.validators.field.ComplexValidator;
 import com.artikov.walle.validators.field.NotEmptyStringValidator;
 import com.artikov.walle.validators.field.PatternValidator;
-import com.artikov.walle.validators.form.PerFieldFormValidator;
+import com.artikov.walle.validators.form.StandardFormValidator;
 import com.artikov.wallesample.validators.EmailValidator;
 import com.artikov.wallesample.validators.PasswordValidator;
 
@@ -45,7 +45,7 @@ public class SignUpPresenter extends MvpPresenter<SignUpView> {
 		PasswordValidator passwordValidator = new PasswordValidator(R.string.invalid_password_error);
 		CompareValidator<String> comparePasswordsValidator = new CompareValidator<>(SignUpForm.PASSWORD, R.string.confirm_password_error);
 
-		PerFieldFormValidator formValidator = new PerFieldFormValidator();
+		StandardFormValidator formValidator = new StandardFormValidator();
 		formValidator.addFieldValidator(SignUpForm.EMAIL, new ComplexValidator<>(notEmptyStringValidator, emailValidator));
 		formValidator.addFieldValidator(SignUpForm.PASSWORD, new ComplexValidator<>(notEmptyStringValidator, passwordValidator));
 		formValidator.addFieldValidator(SignUpForm.CONFIRM_PASSWORD, new ComplexValidator<>(notEmptyStringValidator, comparePasswordsValidator));

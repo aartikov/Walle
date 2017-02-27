@@ -16,8 +16,7 @@ import com.artikov.walle.FormValidationResult;
 import com.artikov.walle.decorators.field.ComplexDecorator;
 import com.artikov.walle.decorators.field.EditTextErrorDecorator;
 import com.artikov.walle.decorators.field.ViewBackgroundDecorator;
-import com.artikov.walle.decorators.form.PerFieldFormDecorator;
-import com.artikov.walle.utils.SimpleTextWatcher;
+import com.artikov.walle.decorators.form.StandardFormDecorator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,7 +78,7 @@ public class SignUpActivity extends MvpAppCompatActivity implements SignUpView {
 	}
 
 	private FormDecorator createFormDecorator() {
-		PerFieldFormDecorator formDecorator = new PerFieldFormDecorator();
+		StandardFormDecorator formDecorator = new StandardFormDecorator();
 		formDecorator.addFieldDecorator(SignUpForm.EMAIL, new EditTextErrorDecorator(mEmailEditText));
 
 		FieldDecorator passwordDecorator = new ComplexDecorator(

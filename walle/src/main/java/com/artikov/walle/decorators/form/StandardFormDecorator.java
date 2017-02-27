@@ -15,7 +15,7 @@ import com.artikov.walle.FormValidationResult;
  *
  * @author Artur Artikov
  */
-public class PerFieldFormDecorator extends FormDecorator {
+public class StandardFormDecorator extends FormDecorator {
 	private Map<Field, FieldDecorator> mFieldDecorators = new HashMap<>();
 	private FormValidationResult mFormValidationResult;
 	private AdditionalDecoration mAdditionalDecoration;
@@ -23,7 +23,7 @@ public class PerFieldFormDecorator extends FormDecorator {
 
 	public void addFieldDecorator(final Field field, FieldDecorator decorator) {
 		if (mFieldDecorators.containsKey(field)) {
-			throw new IllegalArgumentException("PerFieldFormDecorator: more than one decorator for field " + field.getName());
+			throw new IllegalArgumentException("StandardFormDecorator: more than one decorator for field " + field.getName());
 		}
 
 		decorator.setOnValidationResultResetListener(new FieldDecorator.OnValidationResultResetListener() {

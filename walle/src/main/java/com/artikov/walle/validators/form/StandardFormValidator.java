@@ -16,7 +16,7 @@ import com.artikov.walle.FormValidator;
  *
  * @author Artur Artikov
  */
-public class PerFieldFormValidator extends FormValidator {
+public class StandardFormValidator extends FormValidator {
 
     public enum ValidationStrategy {
         ALL,
@@ -27,17 +27,17 @@ public class PerFieldFormValidator extends FormValidator {
     private Map<Field, FieldValidator> mFieldValidators = new LinkedHashMap<>();
     private AdditionalValidation mAdditionalValidation;
 
-    public PerFieldFormValidator() {
+    public StandardFormValidator() {
         this(ValidationStrategy.ALL);
     }
 
-    public PerFieldFormValidator(ValidationStrategy validationStrategy) {
+    public StandardFormValidator(ValidationStrategy validationStrategy) {
         mValidationStrategy = validationStrategy;
     }
 
     public <T> void addFieldValidator(Field<T> field, FieldValidator<T> validator) {
         if (mFieldValidators.containsKey(field)) {
-            throw new IllegalArgumentException("PerFieldFormValidator: more than one validator for field " + field.getName());
+            throw new IllegalArgumentException("StandardFormValidator: more than one validator for field " + field.getName());
         }
 	    mFieldValidators.put(field, validator);
     }
@@ -69,7 +69,7 @@ public class PerFieldFormValidator extends FormValidator {
             } else if(mValidationStrategy == ValidationStrategy.UNTIL_FIRST_ERROR) {
                 fieldValidationResult = wasError ? FieldValidationResult.VALID : validator.validate(form, field);
             } else {
-                throw new IllegalArgumentException("PerFieldFormValidator: unknown validation strategy " + mValidationStrategy);
+                throw new IllegalArgumentException("StandardFormValidator: unknown validation strategy " + mValidationStrategy);
             }
 
             if (!fieldValidationResult.isValid()) {
